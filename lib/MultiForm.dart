@@ -1,3 +1,8 @@
+import 'package:flutter/material.dart';
+import 'form.dart';
+import 'EmptyState.dart';
+import 'User.dart';
+
 class MultiForm extends StatefulWidget {
   @override
   _MultiFormState createState() => _MultiFormState();
@@ -14,7 +19,7 @@ class _MultiFormState extends State<MultiForm> {
         leading: Icon(
           Icons.wb_cloudy,
         ),
-        title: Text('REGISTER USERS'),
+        title: Text('REGISTER USErRS'),
         actions: <Widget>[
           FlatButton(
             child: Text('Save'),

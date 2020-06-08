@@ -59,7 +59,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   labelText: 'Team name',
                 ),
                 validator: validateName,
-              )),
+              ),
+          ),
 
         ],
       ),

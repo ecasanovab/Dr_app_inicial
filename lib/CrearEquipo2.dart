@@ -1,48 +1,97 @@
 import 'package:flutter/material.dart';
+import 'ListaJugadoresForm.dart';
 
-import 'package:flutter/material.dart';
 
 class CrearEquipo2 extends StatefulWidget {
+  CrearEquipo2({Key key}) : super(key: key);
+
   @override
-  MyCustomFormState createState() {
-    return MyCustomFormState();
+  _MyHomePageState createState() => new _MyHomePageState();
+}
+class Player {
+
+  String _name;
+  String _number;
+
+
+  Player(this._name,this._number);
+
+}
+
+
+class _MyHomePageState extends State<CrearEquipo2> {
+  final formKey34 = GlobalKey<FormState>();
+  String _name;
+  String _number;
+
+
+  String numberValidator(String value) {
+    if(value == null) {
+      return null;
+    }
+    final n = num.tryParse(value);
+    if(n >= 100) {
+      return '"$value" is not a valid nuumber';
+    }
+    return null;
   }
-}
-formItemsDesign(icon, item) {
-  return Padding(
-    padding: EdgeInsets.symmetric(vertical: 7),
-    child: Card(child: ListTile(leading: Icon(icon), title: item)),
-  );
-}
-// Define una clase de estado correspondiente. Esta clase contendrá los datos
-// relacionados con el formulario.
-class MyCustomFormState extends State<CrearEquipo2> {
-  // Crea una clave global que identificará de manera única el widget Form
-  // y nos permita validar el formulario
-  //
-  // Nota: Esto es un `GlobalKey<FormState>`, no un GlobalKey<MyCustomFormState>!
-  final _formKey = GlobalKey<FormState>();
+
+
 
   @override
   Widget build(BuildContext context) {
-    // Cree un widget Form usando el _formKey que creamos anteriormente
-    return Scaffold(
-      // No appbar provided to the Scaffold, only a body with a
-      // CustomScrollView.
-      body: GridView.count(
-        // Create a grid with 2 columns. If you change the scrollDirection to
-        // horizontal, this produces 2 rows.
-        crossAxisCount: 2,
-        // Generate 100 widgets that display their index in the List.
-        children: List.generate(100, (index) {
-          return Center(
-            child: Text(
-              'Item $index',
-              style: Theme.of(context).textTheme.headline,
+    return  Scaffold(
+
+        body:  SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Form(
+              key: formKey34,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  TextFormField(
+                    decoration: InputDecoration(
+                        labelText: 'Name of the player:'
+                    ),
+                    validator: (input) => !input.contains('@') ? 'Not a valid Email' : null,
+                    onSaved: (input) => _name = input,
+                  ),
+                   TextFormField(
+                    decoration: InputDecoration(
+                        labelText: 'Number of the player:'
+                    ),
+                    keyboardType: TextInputType.number,
+                    validator: numberValidator,
+                    textAlign: TextAlign.left,
+                    onSaved: (input) => _number = input,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: FloatingActionButton(
+                          onPressed: () {
+                            _submit();
+
+                          },
+                          child: Text('Submit'),
+                        ),
+                      )
+                    ],
+                  )
+                ],
+              ),
             ),
-          );
-        }),
-      ),
-    );
+          ),
+        ));
+  }
+
+  void _submit(){
+
+    setState(() {
+      bool form = false;
+    });
   }
 }

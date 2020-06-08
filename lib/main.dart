@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:interfacenavigationapp/RegisterPage.dart';
 import 'package:flutter/foundation.dart';
 import 'dart:io';
+import 'MultiForm.dart';
 import 'RegisterPage.dart';
 import 'CrearEquipo.dart';
 import 'CrearEquipo2.dart';
+import 'User.dart';
+import 'ListaJugadoresForm.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -12,7 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Flutter De0mo',
       theme: ThemeData(
         // This is the theme of your application.
         primarySwatch: Colors.blue,
@@ -25,6 +29,7 @@ class MyApp extends StatelessWidget {
         "/crearequipo": (BuildContext context) => CrearEquipo(),
         "/crearpartido": (BuildContext context) => CrearPartido(),
         "/crearjugador": (BuildContext context) => CrearJugador(),
+        "/editarjugador": (BuildContext context) => ListaJugadoresForm(),
       },
       home: Inicio(),
     );
@@ -36,10 +41,10 @@ class Equipo extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: AppBar(
-        title: new Text("Equipos"),
+        title: new Text("Equipoos"),
       ),
       body: Center(
-        child: Text("Team Section"),
+        child: Text("Team Sectionn"),
       ),
       backgroundColor: Colors.blueGrey.shade200,
       floatingActionButton: FloatingActionButton(
@@ -57,7 +62,21 @@ class CrearEquipo extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: AppBar(
-        title: new Text("Creador de equipos"),
+        title: new Text("Creador de equipoos"),
+      ),
+      body: Center(
+        child: ListaJugadoresForm(),
+      ),
+    );
+  }
+}
+
+class ListaJugadores extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      appBar: AppBar(
+        title: new Text("Creador de equipoos"),
       ),
       body: Center(
         child: MyCustomForm(),
@@ -71,10 +90,10 @@ class CrearPartido extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: AppBar(
-        title: new Text("Creador de equiposss"),
+        title: new Text("Creador de equipos"),
       ),
       body: Center(
-        child: RegisterPage(),
+        child: CrearEquipo(),
       ),
     );
   }
@@ -85,7 +104,7 @@ class CrearJugador extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: AppBar(
-        title: new Text("Creador de equiposss"),
+        title: new Text("Creador de equiposs"),
       ),
       body: Center(
         child: CrearEquipo2(),
@@ -94,9 +113,6 @@ class CrearJugador extends StatelessWidget {
   }
 }
 
-
-
-
 // Define un widget de formulario personalizado
 class MyCustomForm extends StatefulWidget {
   @override
@@ -104,12 +120,14 @@ class MyCustomForm extends StatefulWidget {
     return MyCustomFormState();
   }
 }
+
 formItemsDesign(icon, item) {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 7),
     child: Card(child: ListTile(leading: Icon(icon), title: item)),
   );
 }
+
 // Define una clase de estado correspondiente. Esta clase contendrá los datos
 // relacionados con el formulario.
 class MyCustomFormState extends State<MyCustomForm> {
@@ -226,7 +244,7 @@ class Jugador extends StatelessWidget {
         title: new Text("Jugadores"),
       ),
       body: Center(
-        child: Text("Players Section"),
+        child: Text("Players Sectionn"),
       ),
       backgroundColor: Colors.blueGrey.shade200,
       floatingActionButton: FloatingActionButton(
