@@ -86,9 +86,9 @@ class ListaJugadoresFormState extends State<ListaJugadoresForm> {
           floatingActionButton:
               Row(mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                FloatingActionButton(
+                /*FloatingActionButton(
                   child: Container(
-                    width: 200,
+                    width: 8,
                     child:Text('Save Team'),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
@@ -99,9 +99,9 @@ class ListaJugadoresFormState extends State<ListaJugadoresForm> {
                     ),
                       ),
                        onPressed: () => resetList(),
-                      ),
+                      ),*/
 
-                FloatingActionButton(
+               FloatingActionButton(
                     child: Icon(
                       Icons.add,
                     ),
