@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'Jugador.dart';
+import 'Equipo.dart';
+import 'Team.dart';
 
 class ListaJugadoresForm extends StatefulWidget {
   @override
@@ -12,6 +13,8 @@ class ListaJugadoresFormState extends State<ListaJugadoresForm> {
   Jugador jugador = Jugador();
   int count = 1;
   bool showForm = false;
+  bool showSaveTeamName= false;
+  var command='ShowTeamSection';
 
   void submit2(String _name, int _number) {
     setState(() {
@@ -20,6 +23,17 @@ class ListaJugadoresFormState extends State<ListaJugadoresForm> {
         Jugador(name: _name, number: _number),
       );
     });
+  }
+
+  void submit3(String _name, List<Jugador> _playerlist) {
+
+    final _teamList = <Team>[];
+    _teamList.add(
+      Team(name: _name, playerlist: _playerlist),
+      );
+    Navigator.pushNamed(context, "/equipo");
+
+
   }
 
   void resetList() {
@@ -77,89 +91,150 @@ class ListaJugadoresFormState extends State<ListaJugadoresForm> {
       return null;
     }
 
-    if (showForm == false) {
-      return Scaffold(
-          appBar: AppBar(
-            title: Text('jugadoores list'),
-          ),
-          body: _buildlistplayers(),
-          floatingActionButton:
+    if (showSaveTeamName==true) {
+      command = 'ShowTeamSave';
+    }else{
+      if (showForm==false){
+        command='ShowTeamSection';
+      }else {
+        command='ShowPlayerForm';
+
+      }
+      }
+
+
+      switch(command) {
+        case 'ShowTeamSection':
+          return Scaffold(
+              appBar: AppBar(
+                title: Text('jugadoores list'),
+              ),
+              body: _buildlistplayers(),
+              floatingActionButton:
               Row(mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                /*FloatingActionButton(
-                  child: Container(
-                    width: 8,
-                    child:Text('Save Team'),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.circular(10.0),
-                      color: Colors.purple,
+                    Container(
+                      height: 50.0,
+                      width: MediaQuery.of(context).size.width*0.8,
+                      color: Colors.deepOrangeAccent,
+                      child: FlatButton(
+                        child: Text('Save team'),
+                        onPressed: () {
+                          showSaveTeamName=true;
+                          resetList();
 
-                    ),
+                        },
                       ),
-                       onPressed: () => resetList(),
-                      ),*/
-
-               FloatingActionButton(
-                    child: Icon(
-                      Icons.add,
                     ),
-                    onPressed: () {
-                      showForm = true;
-                      incrementCounter();
-                    }),
-              ]));
-    } else {
-      return Scaffold(
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Form(
-                key: formKey2,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    TextFormField(
-                        decoration:
-                            InputDecoration(labelText: 'Name of the player:'),
-                        validator: (input) =>
-                            !input.contains('@') ? 'Not a valid Email' : null,
-                        onSaved: (String input) {
-                          _name = input;
+
+                    FloatingActionButton(
+                        child: Icon(
+                          Icons.add,
+                        ),
+                        onPressed: () {
+                          showForm = true;
+                          incrementCounter();
                         }),
-                    new TextFormField(
-                      decoration:
-                          InputDecoration(labelText: 'Number of the player:'),
-                      keyboardType: TextInputType.number,
-                      validator: numberValidator,
-                      textAlign: TextAlign.left,
-                      onSaved: (input) => _number = input,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                  ]));
+          break;
+        case 'ShowPlayerForm':
+          return Scaffold(
+              body: SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Form(
+                    key: formKey2,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: FloatingActionButton(
-                            onPressed: () {
-                              formKey2.currentState.save();
-                              showForm = false;
-                              submit2(_name, int.parse(_number));
-                            },
-                            child: Text('Submit'),
-                      ),
-                    )
-                  ],
-                )
-              ],
-            ),
-          ),
-        ),
-      ));
+                        TextFormField(
+                            decoration:
+                            InputDecoration(labelText: 'Name of the player:'),
+                            validator: (input) =>
+                            !input.contains('@') ? 'Not a valid Email' : null,
+                            onSaved: (String input) {
+                              _name = input;
+                            }),
+                        new TextFormField(
+                          decoration:
+                          InputDecoration(labelText: 'Number of the player:'),
+                          keyboardType: TextInputType.number,
+                          validator: numberValidator,
+                          textAlign: TextAlign.left,
+                          onSaved: (input) => _number = input,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: FloatingActionButton(
+                                onPressed: () {
+                                  formKey2.currentState.save();
+                                  showForm = false;
+                                  submit2(_name, int.parse(_number));
+                                },
+                                child: Text('Submit'),
+                              ),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ));
+          break;
+        case 'ShowTeamSave':
+          return Scaffold(
+              body: SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Form(
+                    key: formKey2,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        TextFormField(
+                            decoration:
+                            InputDecoration(labelText: 'Name of the team:'),
+                            validator: (input) =>
+                            !input.contains('@') ? 'Not a valid Email' : null,
+                            onSaved: (String input) {
+                              _name = input;
+                            }),
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: FloatingActionButton(
+                                onPressed: () {
+                                  formKey2.currentState.save();
+                                  showSaveTeamName = false;
+                                  submit3(_name,_playerlist);
+                                },
+                                child: Text('Submit'),
+                              ),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ));
+          break;
+        default:
+          print('No Scaffold Found');
+        // code block
+      }
+
+
     }
   }
-}
+
 
 class Player {
   String _name;

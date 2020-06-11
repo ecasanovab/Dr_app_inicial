@@ -8,13 +8,20 @@ import 'CrearEquipo.dart';
 import 'CrearEquipo2.dart';
 import 'User.dart';
 import 'ListaJugadoresForm.dart';
+import 'Equipo.dart';
+import 'Team.dart';
+import 'Jugador.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+
+
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final _teamList = <Team>[];
     return MaterialApp(
       title: 'Flutter De0mo',
       theme: ThemeData(
@@ -23,7 +30,7 @@ class MyApp extends StatelessWidget {
       ),
       routes: <String, WidgetBuilder>{
         "/inicio": (BuildContext context) => Inicio(),
-        "/equipo": (BuildContext context) => Equipo(),
+        "/equipo": (BuildContext context) => Equipo(_teamList),
         "/jugador": (BuildContext context) => Jugador(),
         "/partido": (BuildContext context) => Partido(),
         "/crearequipo": (BuildContext context) => CrearEquipo(),
@@ -36,34 +43,13 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Equipo extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: AppBar(
-        title: new Text("Equipoos"),
-      ),
-      body: Center(
-        child: Text("Team Sectionn"),
-      ),
-      backgroundColor: Colors.blueGrey.shade200,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, "/crearequipo");
-        },
-        child: const Icon(Icons.add),
-      ),
-    );
-  }
-}
+
 
 class CrearEquipo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: AppBar(
-        title: new Text("Creador de equipoos"),
-      ),
+
       body: Center(
         child: ListaJugadoresForm(),
       ),
@@ -90,7 +76,7 @@ class CrearPartido extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: AppBar(
-        title: new Text("Creador de equipos"),
+        title: new Text("Creador de equipoos"),
       ),
       body: Center(
         child: CrearEquipo(),
@@ -279,6 +265,10 @@ class Partido extends StatelessWidget {
 }
 
 class Inicio extends StatelessWidget {
+
+  final _playerlist = <Jugador>[];
+
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -301,6 +291,7 @@ class Inicio extends StatelessWidget {
                               borderRadius: BorderRadius.circular(10.0)),
                           onPressed: () {
                             Navigator.pushNamed(context, "/inicio");
+
                           },
                           child: SizedBox(
                               width: 100,
